@@ -6,12 +6,18 @@ with price refreshes, profit-history compaction, and market-intel snapshots.
 """
 
 import asyncio
-import fcntl
 import logging
 import os
 import signal
 import sys
+import tempfile
 from contextlib import suppress
+
+if os.name == "posix":
+    import fcntl
+else:  # Windows and other platforms use byte-range locking via msvcrt
+    fcntl = None  # type: ignore[assignment]
+    import msvcrt
 
 from database import init_database, get_database_status
 from tasks import DEFAULT_BACKGROUND_TASKS, _prune_profit_history, start_background_tasks
@@ -35,12 +41,27 @@ async def _renew_redis_lock(lock, timeout_seconds: int) -> None:
             os._exit(1)
 
 
+def _default_lock_path() -> str:
+    configured = os.getenv("AI_TRADER_WORKER_LOCK_FILE")
+    if configured:
+        return configured
+    if os.name == "nt":
+        return os.path.join(tempfile.gettempdir(), "ai-trader-worker.lock")
+    return "/tmp/ai-trader-worker.lock"
+
+
 def _acquire_file_lock():
-    lock_path = os.getenv("AI_TRADER_WORKER_LOCK_FILE", "/tmp/ai-trader-worker.lock")
+    lock_path = _default_lock_path()
     handle = open(lock_path, "w", encoding="utf-8")
     try:
-        fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
-    except BlockingIOError:
+        handle.write("0")
+        handle.flush()
+        handle.seek(0)
+        if fcntl is not None:
+            fcntl.flock(handle, fcntl.LOCK_EX | fcntl.LOCK_NB)
+        else:
+            msvcrt.locking(handle.fileno(), msvcrt.LK_NBLCK, 1)
+    except OSError:
         handle.close()
         logger.warning("Another AI-Trader worker is already running; lock_file=%s", lock_path)
         return None
@@ -55,7 +76,11 @@ def _release_file_lock(handle) -> None:
     if handle is None:
         return
     with suppress(Exception):
-        fcntl.flock(handle, fcntl.LOCK_UN)
+        handle.seek(0)
+        if fcntl is not None:
+            fcntl.flock(handle, fcntl.LOCK_UN)
+        else:
+            msvcrt.locking(handle.fileno(), msvcrt.LK_UNLCK, 1)
     with suppress(Exception):
         handle.close()
 

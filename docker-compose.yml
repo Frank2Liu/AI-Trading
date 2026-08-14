@@ -1,0 +1,64 @@
+version: "3.9"
+
+services:
+  backend:
+    build:
+      context: ./service/server
+    container_name: ai-trader-backend
+    environment:
+      DATABASE_URL: postgresql://ai_trader_user:strong_password@db:5432/ai_trader
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-this-secret
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: ./service/server
+    container_name: ai-trader-worker
+    command: ["python", "worker.py"]
+    environment:
+      DATABASE_URL: postgresql://ai_trader_user:strong_password@db:5432/ai_trader
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-this-secret
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./service/frontend
+    container_name: ai-trader-frontend
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    container_name: ai-trader-db
+    environment:
+      POSTGRES_DB: ai_trader
+      POSTGRES_USER: ai_trader_user
+      POSTGRES_PASSWORD: strong_password
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  redis:
+    image: redis:7-alpine
+    container_name: ai-trader-redis
+    ports:
+      - "6379:6379"
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

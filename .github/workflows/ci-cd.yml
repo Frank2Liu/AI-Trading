@@ -1,0 +1,57 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install backend dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r service/server/requirements.txt
+
+      - name: Run backend tests
+        run: |
+          pytest service/server/tests -q
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install frontend dependencies
+        working-directory: service/frontend
+        run: npm ci
+
+      - name: Build frontend
+        working-directory: service/frontend
+        run: npm run build
+
+  deploy:
+    if: github.ref == 'refs/heads/main'
+    needs: [test-backend, build-frontend]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build and push Docker images
+        run: |
+          echo "Docker deployment step placeholder"
+          echo "Configure registry credentials and docker build/push here"
