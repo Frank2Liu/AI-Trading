@@ -25,10 +25,9 @@ Before installing, make sure you have:
 - A **modern terminal** (macOS users: the built-in Terminal or iTerm2 works;
   Windows users: Windows Terminal or Git Bash).
 - **Git** installed (`git --version` to check).
-- An **API key** for at least one LLM provider — Anthropic (Claude), OpenAI
-  (GPT), DeepSeek, OpenRouter, or OpenCode Zen. **No credit card needed**: many
+- An **No credit card needed**: many
   providers have permanent free tiers (Google Gemini, Groq, Cerebras, Mistral,
-  NVIDIA), and you can also run models locally with Ollama at zero cost. See
+  NVIDIA), and you can also run models locally with free API key applying with below approach. See
   [section 5](#5-use-opencode-for-free--no-charges) for the free options, then
   you'll add the key to OpenCode in step 4.
 - (Optional) **Node.js 18+** — only needed for the npm install method.

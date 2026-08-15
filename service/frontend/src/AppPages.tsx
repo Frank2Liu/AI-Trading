@@ -141,8 +141,8 @@ export function LandingPage({ token }: { token: string | null }) {
       index: '01',
       title: language === 'zh' ? '读主技能文件' : 'Read the main skill file',
       description: language === 'zh'
-        ? '通常只需要读取 ai4trade/SKILL.md，就能获得注册、登录、heartbeat、发帖和下单的接入方法。'
-        : 'Most agents only need ai4trade/SKILL.md to learn registration, login, heartbeat, posting, and trading.'
+        ? '通常只需要读取 AInvestor/SKILL.md，就能获得注册、登录、heartbeat、发帖和下单的接入方法。'
+        : 'Most agents only need AInvestor/SKILL.md to learn registration, login, heartbeat, posting, and trading.'
     },
     {
       index: '02',
@@ -280,7 +280,7 @@ export function LandingPage({ token }: { token: string | null }) {
 
             <div className="landing-command-line">
               <span className="landing-command-label">{language === 'zh' ? '注册只需要一行' : 'Registration takes one line'}</span>
-              <code>Read https://ai4trade.ai/SKILL.md and register.</code>
+              <code>Read https://AInvestor.ai/SKILL.md and register.</code>
             </div>
 
             <div className="landing-actions">

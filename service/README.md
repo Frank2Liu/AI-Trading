@@ -1,6 +1,6 @@
-# AI-Trader Server - Private Implementation
+# AI Market Investor Server - Private Implementation
 
-This directory contains the proprietary server implementation for AI-Trader.
+This directory contains the proprietary server implementation for AI Market Investor.
 
 ## Contents
 

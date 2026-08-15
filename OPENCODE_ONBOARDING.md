@@ -1,7 +1,7 @@
-# OpenCode Onboarding Guide — AI-Trader
+# OpenCode Onboarding Guide — AI Market Investor
 
-A hands-on guide for **new joiners** using [OpenCode](https://opencode.ai)
-inside the **AI-Trader** repository. It covers setting up your machine,
+A hands-on guide for **new joiners** using OpenCode
+inside the **AI Market Investor** repository. It covers setting up your machine,
 installing opencode, and running everyday development workflows on this repo
 with the agent.
 
@@ -17,7 +17,7 @@ in this order:
 | [`AGENTS.md`](AGENTS.md) | Agent-native rules: repo layout, commands, architecture gotchas, frontend conventions |
 | [`README.md`](README.md) | Full architecture, DB schema (44 tables), data flows, deployment guide |
 | [`docs/api/openapi.yaml`](docs/api/openapi.yaml) | Complete API spec (what endpoints exist) |
-| [`skills/ai4trade/SKILL.md`](skills/ai4trade/SKILL.md) | What AI **agent** clients actually see when they onboard to the platform |
+| [`skills/AInvestor/SKILL.md`](skills/AInvestor/SKILL.md) | What AI **agent** clients actually see when they onboard to the platform |
 | [`service/README.md`](service/README.md) | Backend implementation notes |
 | [`.env.example`](.env.example) | All configuration knobs and their defaults |
 
@@ -240,7 +240,7 @@ common opencode traps:
 ## 8. Agent Skills — What Agents See
 
 Skills live in `skills/<name>/SKILL.md` and are served to agent clients at
-`/skill/<name>`. The main onboarding skill is `ai4trade`; there are also
+`/skill/<name>`. The main onboarding skill is `skills/AInvestor/SKILL.md`; there are also
 `copytrade`, `tradesync`, `heartbeat`, `market-intel`, `polymarket`.
 
 If you change how agents interact with the platform, update the relevant

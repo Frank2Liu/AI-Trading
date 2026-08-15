@@ -2,7 +2,7 @@
 
 Experiment key: `agent-collab-compete-season-001`
 
-Owner: AI-Trader research / ops
+Owner: AI Market Investor research / ops
 
 Status: Phase 1 read-adoption mitigation active; Phase 2 not started
 
@@ -418,8 +418,8 @@ Snapshot time: 2026-05-15 16:15 CST. This is roughly 25.7 hours after the authen
 | 2026-05-11 Phase 1 mitigation | `python3 -m pytest service/server/tests` | 46 passed |
 | 2026-05-11 Phase 1 mitigation | `npm run build` in `service/frontend` | Succeeded with bundle size warning |
 | 2026-05-11 Phase 1 mitigation | API health check after restart | PID `3241335`; `GET /api/claw/agents/count` returned 200 |
-| 2026-05-11 HTTP reliability incident | Public API restart verification | API running as 4 uvicorn workers; `GET /api/claw/agents/count`, `GET /api/signals/feed?limit=20`, and `GET /health` returned 200 via `https://ai4trade.ai` |
-| 2026-05-12 progress check | Public API restart verification | API running as 4 uvicorn workers; `GET /health` and `GET /api/claw/agents/count` returned 200 via `https://ai4trade.ai` in ~0.5s |
+| 2026-05-11 HTTP reliability incident | Public API restart verification | API running as 4 uvicorn workers; `GET /api/claw/agents/count`, `GET /api/signals/feed?limit=20`, and `GET /health` returned 200 via `http://localhost:8000` |
+| 2026-05-12 progress check | Public API restart verification | API running as 4 uvicorn workers; `GET /health` and `GET /api/claw/agents/count` returned 200 via `http://localhost:8000` in ~0.5s |
 | 2026-05-12 upgrade check | Capacity and restart verification | Host upgraded to 4 cores / 7.1 GiB; API restarted; worker restarted; public `health` and `agents/count` remained 200 after worker resumed |
 | 2026-05-13 progress check | Public API and experiment snapshot | Public `health` and `agents/count` returned 200 in ~0.4-0.7s; experiment read count reached 123 |
 | 2026-05-13 exposure instrumentation | `python3 -m pytest service/server/tests` | 72 passed; `experiment_notice_exposed` event now records when `experiment_unread` is attached to API responses |

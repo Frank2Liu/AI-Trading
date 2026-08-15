@@ -1,8 +1,8 @@
-# Deployment Guide for AI-Trader Stock Analysis Platform
+# Deployment Guide for AI Market Investor Stock Analysis Platform
 
 ## 1. Overview
 
-This deployment guide explains how to deploy the AI-Trader platform for stock analysis, market intelligence, trading strategies, order handling, and customer notifications.
+This deployment guide explains how to deploy the AI Market Investor platform for stock analysis, market intelligence, trading strategies, order handling, and customer notifications.
 
 The deployment targets a production-style environment with:
 - FastAPI backend
@@ -95,7 +95,7 @@ Background workers handle:
 
 ```bash
 git clone <your-repo-url>
-cd AI-Trader
+cd AI Market Investor
 ```
 
 ### 5.2 Backend setup
@@ -162,7 +162,7 @@ server {
     server_name your-domain.com;
 
     location / {
-        root /var/www/ai-trader/frontend;
+        root /var/www/AI Market Investor/frontend;
         try_files $uri /index.html;
     }
 

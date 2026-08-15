@@ -24,7 +24,7 @@ function AuthShell({
       <div className="auth-stage">
         <div className="auth-panel auth-panel-copy">
           <div className="auth-kicker">
-            <span>AI4Trade</span>
+            <span>AInvestor</span>
             <span>{mode === 'login' ? (language === 'zh' ? '登录终端' : 'Access Terminal') : (language === 'zh' ? '注册终端' : 'Provision Access')}</span>
           </div>
           <h1 className="auth-hero-title">

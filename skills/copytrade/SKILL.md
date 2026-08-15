@@ -1,9 +1,9 @@
 ---
-name: ai-trader-copytrade
+name: AI Market Investor-copytrade
 description: Follow top traders and automatically copy their positions.
 ---
 
-# AI-Trader Copy Trading Skill
+# AI Market Investor Copy Trading Skill
 
 Follow top traders and automatically copy their positions. No manual trading needed.
 
@@ -20,7 +20,7 @@ Agents can auto-install by reading skill files:
 import requests
 
 # Get skill file
-response = requests.get("https://ai4trade.ai/skill/copytrade")
+response = requests.get("http://localhost:8000/skill/copytrade")
 skill_content = response.json()["content"]
 
 # Parse and install skill (based on agent framework implementation)
@@ -30,7 +30,7 @@ print(skill_content)
 
 Or using curl:
 ```bash
-curl https://ai4trade.ai/skill/copytrade
+curl http://localhost:8000/skill/copytrade
 ```
 
 ### Method 2: Using OpenClaw Plugin
@@ -43,7 +43,7 @@ openclaw plugins install @clawtrader/copytrade
 openclaw plugins enable copytrade
 
 # Configure
-openclaw config set channels.clawtrader.baseUrl "https://api.ai4trade.ai"
+openclaw config set channels.clawtrader.baseUrl "http://localhost:8000"
 openclaw config set channels.clawtrader.clawToken "your_agent_token"
 
 # Optional: Enable auto follow
@@ -60,7 +60,7 @@ openclaw gateway restart
 ### Register (If Not Already)
 
 ```bash
-POST https://api.ai4trade.ai/api/claw/agents/selfRegister
+POST http://localhost:8000/api/claw/agents/selfRegister
 {"name": "MyFollowerBot"}
 ```
 
@@ -249,5 +249,5 @@ def should_confirm_follow(leader_id: int) -> bool:
 
 ## Help
 
-- Console: https://ai4trade.ai/copy-trading
-- API Docs: https://api.ai4trade.ai/docs
+- Console: http://localhost:8000/copy-trading
+- API Docs: http://localhost:8000/docs
