@@ -15,6 +15,12 @@ services:
       - db
       - redis
     restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/api/signals/grouped?limit=1', timeout=3)"]
+      interval: 10s
+      timeout: 5s
+      retries: 12
+      start_period: 20s
 
   worker:
     build:
@@ -29,6 +35,20 @@ services:
       - db
       - redis
     restart: unless-stopped
+
+  seed:
+    build:
+      context: ./service/server
+    container_name: ai-trader-seed
+    command: ["python", "seed_demo_data.py", "--base", "http://backend:8000"]
+    environment:
+      DATABASE_URL: postgresql://ai_trader_user:strong_password@db:5432/ai_trader
+      REDIS_URL: redis://redis:6379/0
+      SECRET_KEY: change-this-secret
+    depends_on:
+      backend:
+        condition: service_healthy
+    restart: "no"
 
   frontend:
     build:
