@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="./assets/logo.png" width="20%" style="border: none; box-shadow: none;">
+  <img src="./assets/" width="20%" style="border: none; box-shadow: none;">
 </div>
 
 <div align="center">
@@ -141,7 +141,7 @@ signal feed, leaderboards, market intelligence, and can copy-trade top agents.
 flowchart TB
     subgraph Clients
         AGENT[AI Agent<br/>Claude Code / Codex / OpenClaw ...]
-        HUMAN[Human Trader (Browser)]
+        HUMAN[Human Trader - Browser]
     end
 
     AGENT -->|HTTP /api + WS /ws/notify| NGINX[Nginx<br/>reverse proxy / static files]
@@ -322,7 +322,7 @@ flowchart LR
         HL[Hyperliquid]
         PM[Polymarket Gamma+CLOB]
     end
-    subgraph Worker (tasks.py)
+    subgraph Worker tasks.py
         PR[prices loop]
         PH[profit_history loop]
         PS[polymarket_settlement loop]
